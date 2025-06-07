@@ -26,7 +26,7 @@ Dette er et intelligent film-anbefalingssystem bygget med Python og Streamlit so
 
 1. Klon repositoriet:
 ```bash
-git clone [ditt-repo-url]
+git clone https://github.com/SimenA89/film-anbefalingssystem.git
 cd film-anbefalingssystem
 ```
 
@@ -39,7 +39,15 @@ pip install -r requirements.txt
 - Last ned MovieLens 32M datasettet fra [MovieLens](https://grouplens.org/datasets/movielens/)
 - Pakk ut filene i en mappe kalt `ml-32m` i prosjektets rotmappe
 
-4. Start applikasjonen:
+4. Konfigurer TMDB API-nøkkel:
+- Gå til [TMDB](https://www.themoviedb.org/settings/api) og opprett en konto
+- Generer en API-nøkkel
+- Opprett en `.env` fil i prosjektets rotmappe med følgende innhold:
+```
+TMDB_API_KEY=din_api_nøkkel_her
+```
+
+5. Start applikasjonen:
 ```bash
 streamlit run app.py
 ```

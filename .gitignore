@@ -36,6 +36,7 @@ ENV/
 movie_embeddings.pt
 movie_metadata.csv
 ml-32m/
+.env
 
 # Streamlit
 .streamlit/

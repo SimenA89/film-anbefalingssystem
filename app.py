@@ -3,11 +3,22 @@ import pandas as pd
 import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+from dotenv import load_dotenv
 from movie_recommender import (
     load_ratings, train_collaborative_filtering_model,
     hybrid_recommendation, extract_bert_embeddings,
     save_metadata_and_embeddings
 )
+
+# Last inn miljøvariabler fra .env fil
+load_dotenv()
+
+# Hent API-nøkkel fra miljøvariabel
+TMDB_API_KEY = os.getenv('TMDB_API_KEY')
+if not TMDB_API_KEY:
+    st.error("TMDB API-nøkkel ikke funnet. Vennligst opprett en .env fil med TMDB_API_KEY=din_nøkkel")
+    st.stop()
 
 # Sett opp sidetittel og konfigurasjon
 st.set_page_config(
@@ -212,7 +223,7 @@ else:
             selected_movie = None
 
     # Legg til TMDB API nøkkel og funksjon for å hente filmplakater
-    TMDB_API_KEY = "0a7bafccfab5754f955461037230043a"  # Du må erstatte dette med din egen API-nøkkel
+    # TMDB_API_KEY er nå hentet fra miljøvariabelen over
 
     def get_movie_poster(movie_title, year=None):
         """Henter filmplakat fra TMDB API"""
