@@ -232,8 +232,9 @@ def run_cli(movies, embeddings, cf_model):
 # Example usage
 if __name__ == "__main__":
     # Load movie and ratings data
-    movies = pd.read_csv("ml-32m/ml-32m/movies.csv")
-    ratings = load_ratings("ml-32m/ml-32m/ratings.csv")
+    DATA_DIR = "ml-latest-small"
+    movies = pd.read_csv(f"{DATA_DIR}/movies.csv")
+    ratings = load_ratings(f"{DATA_DIR}/ratings.csv")
     
     # Train collaborative filtering model
     cf_model = train_collaborative_filtering_model(ratings)

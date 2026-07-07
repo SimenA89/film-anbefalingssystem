@@ -4,6 +4,9 @@ import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import requests
+import zipfile
+import io
 from dotenv import load_dotenv
 from movie_recommender import (
     load_ratings, train_collaborative_filtering_model,
@@ -145,9 +148,20 @@ with st.sidebar:
 
     if st.button("Last inn data og tren modeller"):
         with st.spinner("Laster inn data og trener modeller..."):
+            
+            # --- NY KODE FOR AUTOMATISK NEDLASTING ---
+            DATA_DIR = "ml-latest-small"
+            if not os.path.exists(DATA_DIR):
+                st.info("Laster ned ML-Latest-Small datasett (kun første gang)...")
+                url = "https://files.grouplens.org/datasets/movielens/ml-latest-small.zip"
+                r = requests.get(url)
+                z = zipfile.ZipFile(io.BytesIO(r.content))
+                z.extractall(".")
+            # -----------------------------------------
+
             # Last inn data
-            movies = pd.read_csv("ml-32m/ml-32m/movies.csv")
-            ratings = load_ratings("ml-32m/ml-32m/ratings.csv", sample_size=sample_size)
+            movies = pd.read_csv(f"{DATA_DIR}/movies.csv")
+            ratings = load_ratings(f"{DATA_DIR}/ratings.csv", sample_size=sample_size)
             
             # Tren modell
             cf_model = train_collaborative_filtering_model(ratings, sample_size=sample_size)
